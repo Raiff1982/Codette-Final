@@ -3,7 +3,7 @@ import json
 import hashlib
 import threading
 import logging
-import sqlite3
+from src.data_access.sqlite_manager import SQLiteManager
 from datetime import datetime, timedelta
 from abc import ABC, abstractmethod
 from collections import defaultdict
@@ -118,9 +118,9 @@ class NexusMemory:
         self.decay_days = decay_days
         self.lock = threading.Lock()
         self.logger = logging.getLogger('NexusMemory')
-        self.conn = sqlite3.connect(db_path, check_same_thread=False)
+        self.db = SQLiteManager(db_path)
         self.blockchain = Blockchain()
-        self.conn.execute("""
+        self.db.execute("""
             CREATE TABLE IF NOT EXISTS memory (
                 key TEXT PRIMARY KEY,
                 value TEXT,
@@ -128,14 +128,12 @@ class NexusMemory:
                 emotion_weight FLOAT
             )
         """)
-        self.conn.commit()
         self._load_from_db()
 
     def _load_from_db(self):
         try:
-            cursor = self.conn.cursor()
-            cursor.execute("SELECT key, value, timestamp, emotion_weight FROM memory")
-            for key, value, timestamp, emotion_weight in cursor.fetchall():
+            rows = self.db.fetchall("SELECT key, value, timestamp, emotion_weight FROM memory")
+            for key, value, timestamp, emotion_weight in rows:
                 self.store[key] = {
                     "value": json.loads(value),
                     "timestamp": datetime.fromisoformat(timestamp),
@@ -156,18 +154,17 @@ class NexusMemory:
                 if len(self.store) >= self.max_entries:
                     oldest = min(self.store.items(), key=lambda x: x[1].get('timestamp', timestamp))[0]
                     self.logger.info(f"Removing oldest entry: {oldest}")
-                    self.conn.execute("DELETE FROM memory WHERE key = ?", (oldest,))
+                    self.db.execute("DELETE FROM memory WHERE key = ?", (oldest,))
                     del self.store[oldest]
                 self.store[hashed] = {
                     "value": value,
                     "timestamp": timestamp,
                     "emotion_weight": emotion_weight
                 }
-                self.conn.execute(
+                self.db.execute(
                     "INSERT OR REPLACE INTO memory (key, value, timestamp, emotion_weight) VALUES (?, ?, ?, ?)",
                     (hashed, json.dumps(value), timestamp.isoformat(), emotion_weight)
                 )
-                self.conn.commit()
                 self.blockchain.add_block({"key": hashed, "value": value, "timestamp": timestamp.isoformat()})
                 self.logger.debug(f"Wrote key: {hashed}, value: {value}")
                 return hashed
@@ -181,9 +178,7 @@ class NexusMemory:
             with self.lock:
                 entry = self.store.get(hashed)
                 if not entry:
-                    cursor = self.conn.cursor()
-                    cursor.execute("SELECT value, timestamp, emotion_weight FROM memory WHERE key = ?", (hashed,))
-                    row = cursor.fetchone()
+                    row = self.db.fetchone("SELECT value, timestamp, emotion_weight FROM memory WHERE key = ?", (hashed,))
                     if not row:
                         self.logger.debug(f"Key not found: {hashed}")
                         return None
@@ -195,8 +190,7 @@ class NexusMemory:
                     self.store[hashed] = entry
                 if self._is_decayed(entry["timestamp"], entry.get("emotion_weight", 0.5)):
                     self.logger.info(f"Removing decayed entry: {hashed}")
-                    self.conn.execute("DELETE FROM memory WHERE key = ?", (hashed,))
-                    self.conn.commit()
+                    self.db.execute("DELETE FROM memory WHERE key = ?", (hashed,))
                     del self.store[hashed]
                     return None
                 self.logger.debug(f"Read key: {hashed}, value: {entry['value']}")

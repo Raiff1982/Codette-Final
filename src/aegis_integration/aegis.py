@@ -9,7 +9,7 @@ import json
 import hashlib
 import threading
 import logging
-import sqlite3
+from src.data_access.sqlite_manager import SQLiteManager
 from datetime import datetime, timedelta
 from abc import ABC, abstractmethod
 from collections import defaultdict
@@ -215,13 +215,23 @@ class AegisCouncil:
 
 # Memory Management
 class NexusMemory:
-    def __init__(self, max_entries: int = 10000, decay_days: int = 30):
+    def __init__(self, max_entries: int = 10000, decay_days: int = 30, db_path: str = "nexus_memory.db"):
         self.store = defaultdict(dict)
         self.max_entries = max_entries
         self.decay_days = decay_days
         self.lock = threading.Lock()
         self.logger = logging.getLogger('NexusMemory')
+        self.db = SQLiteManager(db_path)
         self.blockchain = Blockchain()
+        self.db.execute("""
+            CREATE TABLE IF NOT EXISTS memory (
+                key TEXT PRIMARY KEY,
+                value TEXT,
+                timestamp TEXT,
+                emotion_weight FLOAT
+            )
+        """)
+        self._load_from_db()
 
     def write(self, key: str, value: Any, emotion_weight: float = 0.5) -> Optional[str]:
         try:
@@ -259,6 +269,11 @@ class NexusMemory:
                     "emotion_weight": float(emotion_weight)  # Ensure emotion_weight is native float
                 }
 
+                self.db.execute(
+                    "INSERT OR REPLACE INTO memory (key, value, timestamp, emotion_weight) VALUES (?, ?, ?, ?)",
+                    (hashed, json.dumps(value), timestamp.isoformat(), emotion_weight)
+                )
+
                 self.blockchain.add_block({
                     "key": hashed,
                     "value": value,
@@ -276,10 +291,19 @@ class NexusMemory:
             with self.lock:
                 entry = self.store.get(hashed)
                 if not entry:
-                    return None
+                    row = self.db.fetchone("SELECT value, timestamp, emotion_weight FROM memory WHERE key = ?", (hashed,))
+                    if not row:
+                        return None
+                    entry = {
+                        "value": json.loads(row[0]),
+                        "timestamp": datetime.fromisoformat(row[1]),
+                        "emotion_weight": row[2]
+                    }
+                    self.store[hashed] = entry
 
                 if self._is_decayed(entry["timestamp"], entry.get("emotion_weight", 0.5)):
                     del self.store[hashed]
+                    self.db.execute("DELETE FROM memory WHERE key = ?", (hashed,))
                     return None
 
                 return entry["value"]
