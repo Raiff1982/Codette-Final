@@ -1,0 +1,76 @@
+"""
+Enhanced Gradio interface for Codette with full AI functionality
+"""
+import gradio as gr
+from datetime import datetime
+from codette import Codette
+from components.ai_core import AICore
+import logging
+import json
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class CodetteGradio:
+    def __init__(self):
+        """Initialize Codette and its components"""
+        try:
+            with open('config.json', 'r') as f:
+                self.config = json.load(f)
+        except Exception as e:
+            logger.warning(f"Could not load config.json, using defaults: {e}")
+            self.config = {
+                "host": "127.0.0.1",
+                "port": 9000,
+                "quantum_fluctuation": 0.07,
+                "spiderweb_dim": 5,
+                "recursion_depth": 4,
+                "perspectives": [
+                    "Newton",
+                    "DaVinci",
+                    "Ethical",
+                    "Quantum",
+                    "Memory"
+                ]
+            }
+        
+        self.ai_core = AICore()
+        self.codette = Codette()
+        
+    def process_message(self, message: str, history: list) -> tuple:
+        """Process a message through Codette's AI core"""
+        try:
+            timestamp = datetime.now().strftime("%H:%M:%S")
+            
+            # Process through Codette
+            response = self.codette.process_input(message)
+            
+            # Format response with timestamp
+            formatted_response = f"[{timestamp}] {response}"
+            
+            # Update history
+            history.append((message, formatted_response))
+            return "", history
+            
+        except Exception as e:
+            logger.error(f"Error processing message: {e}")
+            error_msg = f"[{timestamp}] Error: {str(e)}"
+            history.append((message, error_msg))
+            return "", history
+
+def clear_history():
+    """Clear the chat history"""
+    return [], []
+
+# Initialize Codette
+codette_ui = CodetteGradio()
+interface = codette_ui.create_interface()
+
+if __name__ == "__main__":
+    # Launch with configured settings
+    interface.launch(
+        server_name=codette_ui.config.get("host", "127.0.0.1"),
+        server_port=codette_ui.config.get("port", 9000),
+        share=False
+    )

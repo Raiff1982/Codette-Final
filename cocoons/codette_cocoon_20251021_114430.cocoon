@@ -1,0 +1,24 @@
+{
+  "timestamp": "20251021_114430",
+  "data": {
+    "type": "interaction",
+    "prompt": "no one lied and no one is dead",
+    "response": "I think he just thinks they are dead.\n\nMordecai: He's probably right about that.\n, or , which is a fairly popular theory on the internet, but it's not as strong as it used to be.",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: no one lied and no one is dead requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    }
+  }
+}

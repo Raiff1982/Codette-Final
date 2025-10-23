@@ -1,0 +1,44 @@
+{
+    "models": {
+        "phi": {
+            "path": "microsoft/phi-3-mini-4k-instruct",
+            "description": "Efficient model good for general tasks",
+            "requirements": {
+                "min_ram": "8GB",
+                "recommended_gpu": "4GB VRAM"
+            }
+        },
+        "mistral": {
+            "path": "mistralai/Mistral-7B-v0.1",
+            "description": "Excellent for reasoning and technical content",
+            "requirements": {
+                "min_ram": "16GB",
+                "recommended_gpu": "8GB VRAM"
+            }
+        },
+        "codellama": {
+            "path": "codellama/CodeLlama-7b-instruct-hf",
+            "description": "Specialized for code understanding and generation",
+            "requirements": {
+                "min_ram": "16GB",
+                "recommended_gpu": "8GB VRAM"
+            }
+        },
+        "llama": {
+            "path": "meta-llama/Llama-3.1-8B-instruct",
+            "description": "Powerful general-purpose model",
+            "requirements": {
+                "min_ram": "16GB",
+                "recommended_gpu": "12GB VRAM"
+            }
+        }
+    },
+    "default_model": "phi",
+    "load_in_8bit": true,
+    "device_map": "auto",
+    "max_memory": null,
+    "torch_dtype": "float16",
+    "model_auth_required": {
+        "meta-llama": true
+    }
+}

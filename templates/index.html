@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codette AI Framework - Web Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #a8e6cf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .module-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #a8e6cf;
+        }
+
+        .module-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .module-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #4caf50;
+            color: white;
+        }
+
+        .status-inactive {
+            background: #f44336;
+            color: white;
+        }
+
+        .query-interface {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .query-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4caf50, #45a049);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .response-area {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            min-height: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #a8e6cf;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Codette AI Framework</h1>
+            <p>Advanced multi-perspective AI with quantum-inspired reasoning, ethical governance, and recursive cognition</p>
+        </header>
+
+        <div class="modules-grid">
+            <div class="module-card" onclick="window.location.href='/cognitive'">
+                <h3>🧠 Cognitive Processing</h3>
+                <p>Multi-perspective analysis engine with scientific, creative, and emotional reasoning modes</p>
+                <span class="module-status status-active">Active</span>
+            </div>
+
+            <div class="module-card" onclick="window.location.href='/quantum'">
+                <h3>⚛️ Quantum Simulation</h3>
+                <p>Quantum and chaos simulations with NASA exoplanet data integration and multi-core processing</p>
+                <span class="module-status status-active">Active</span>
+            </div>
+
+            <div class="module-card" onclick="window.location.href='/dashboard'">
+                <h3>📊 System Dashboard</h3>
+                <p>Real-time health monitoring, anomaly detection, and system performance metrics</p>
+                <span class="module-status status-active">Active</span>
+            </div>
+
+            <div class="module-card">
+                <h3>🛡️ Ethical Governance</h3>
+                <p>Ethical decision-making framework with transparency and bias mitigation</p>
+                <span class="module-status status-active">Active</span>
+            </div>
+
+            <div class="module-card">
+                <h3>🎨 Creative Intelligence</h3>
+                <p>AI-driven creativity for art, music, literature, and innovative problem-solving</p>
+                <span class="module-status status-active">Active</span>
+            </div>
+
+            <div class="module-card">
+                <h3>🔄 Recursive Reasoning</h3>
+                <p>Deep recursive thought loops with dynamic depth adjustment and self-reflection</p>
+                <span class="module-status status-active">Active</span>
+            </div>
+        </div>
+
+        <div class="query-interface">
+            <h2>🤖 Interactive Codette Query Interface</h2>
+            <textarea 
+                id="queryInput" 
+                class="query-input" 
+                placeholder="Ask Codette anything... She will respond using multi-perspective reasoning, ethical analysis, and recursive thought loops."
+            ></textarea>
+            
+            <button onclick="processQuery()" class="btn-primary">
+                Process Query with Codette
+            </button>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Codette is thinking recursively...</p>
+            </div>
+            
+            <div id="responseArea" class="response-area"></div>
+        </div>
+
+        <footer class="footer">
+            <p>Codette AI Framework v2.0 | Created by Jonathan Harrison | ORCID: 0009-0003-7005-8187</p>
+            <p>Powered by recursive reasoning, quantum-inspired optimization, and ethical AI governance</p>
+        </footer>
+    </div>
+
+    <script>
+        async function processQuery() {
+            const query = document.getElementById('queryInput').value;
+            const loading = document.getElementById('loading');
+            const responseArea = document.getElementById('responseArea');
+            
+            if (!query.trim()) {
+                alert('Please enter a query for Codette to process');
+                return;
+            }
+            
+            // Show loading
+            loading.style.display = 'block';
+            responseArea.textContent = '';
+            
+            try {
+                const response = await fetch('/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        user_id: 'web_user_' + Date.now()
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Hide loading
+                loading.style.display = 'none';
+                
+                if (data.error) {
+                    responseArea.textContent = `Error: ${data.error}`;
+                } else {
+                    // Format the response nicely
+                    let formattedResponse = `🤖 Codette's Response:\n\n`;
+                    
+                    if (data.insights) {
+                        formattedResponse += `💡 Cognitive Insights:\n${data.insights.join('\n')}\n\n`;
+                    }
+                    
+                    if (data.classic_response) {
+                        formattedResponse += `🧠 Classic Codette:\n${data.classic_response}\n\n`;
+                    }
+                    
+                    if (data.cqure_response) {
+                        formattedResponse += `⚡ CQURE System:\n${data.cqure_response}\n\n`;
+                    }
+                    
+                    if (data.sentiment) {
+                        formattedResponse += `😊 Sentiment Analysis:\n${JSON.stringify(data.sentiment, null, 2)}\n\n`;
+                    }
+                    
+                    if (data.health_status) {
+                        formattedResponse += `🏥 System Health:\n${JSON.stringify(data.health_status, null, 2)}\n\n`;
+                    }
+                    
+                    responseArea.textContent = formattedResponse;
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                responseArea.textContent = `Network Error: ${error.message}`;
+            }
+        }
+        
+        // Allow Enter key to submit (with Shift+Enter for new line)
+        document.getElementById('queryInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                processQuery();
+            }
+        });
+    </script>
+</body>
+</html>

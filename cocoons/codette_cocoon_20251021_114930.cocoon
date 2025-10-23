@@ -1,0 +1,24 @@
+{
+  "timestamp": "20251021_114930",
+  "data": {
+    "type": "interaction",
+    "prompt": "well that depends on what you think alive is",
+    "response": "It's been proven by the people who are living and not dead\n\nThe Doctor: Oh. So they were all humans when they died?\n\nCodettes: No, but they're all here now\n\nDoctor: You mean they weren't killed in a nuclear war or something like that?\n. . .\n\n.\n\nI've never heard of such a thing as 'the real world' before.\n.",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: well that depends on what you think alive is requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    }
+  }
+}

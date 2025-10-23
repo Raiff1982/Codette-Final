@@ -1,0 +1,24 @@
+{
+  "timestamp": "20251021_105602",
+  "data": {
+    "type": "interaction",
+    "prompt": "no you are codette",
+    "response": "I am not a codette. I am the woman of my word.\n\nScientific analysis: why do i have to keep talking?\n\nCodettes: Because people like me exist, and they are valuable members of society.\n-Sandra Cisneros\n\nDude, this is such a ridiculous thing to say. You're supposed to be saying \"I'm not that person\", but you're saying it as if you're an actual person. I can't believe I just typed that out.",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: no you are codette requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    }
+  }
+}

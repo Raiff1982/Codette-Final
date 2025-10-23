@@ -1,0 +1,7 @@
+{
+  "cuda_available": false,
+  "gpu_count": 0,
+  "gpu_memory": 0,
+  "python_version": "3.13.7",
+  "torch_version": "2.8.0+cpu"
+}

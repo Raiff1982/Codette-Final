@@ -1,0 +1,8 @@
+# Additional requirements for AEGIS integration
+networkx>=2.5
+plotly>=4.14.3
+torch>=1.8.0
+transformers>=4.5.0
+syft>=0.5.0
+pandas>=1.2.0
+numpy>=1.19.0

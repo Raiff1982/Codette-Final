@@ -1,0 +1,95 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html>
+<head>
+    <title>AegisCouncil Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas { max-width: 600px; margin: 20px auto; }
+    </style>
+</head>
+<body>
+    <h1>AegisCouncil Charts</h1>
+    <h2>Virtue Profile</h2>
+    <canvas id="virtueChart"></canvas>
+    <h2>Influence Scores</h2>
+    <canvas id="influenceChart"></canvas>
+    <p><a href="/">Back to Input</a> | <a href="/reports">View Reports</a> | <a href="/graph">View Graph</a></p>
+    <script>
+        const virtueCtx = document.getElementById('virtueChart').getContext('2d');
+        new Chart(virtueCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ virtue_data.keys() | tojson }},
+                datasets: [{
+                    label: 'Virtue Scores',
+                    data: {{ virtue_data.values() | tojson }},
+                    backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0'],
+                    borderColor: ['#2A8BC1', '#D9544D', '#D4A017', '#3A9A9A'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: { y: { beginAtZero: true, max: 1 } },
+                plugins: { title: { display: true, text: 'Virtue Profile from VirtueAgent' } }
+            }
+        });
+        const influenceCtx = document.getElementById('influenceChart').getContext('2d');
+        new Chart(influenceCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ [item[0] for item in influence_data] | tojson }},
+                datasets: [{
+                    label: 'Influence Scores',
+                    data: {{ [item[1] for item in influence_data] | tojson }},
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    borderColor: ['#2A8BC1', '#D9544D'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: { y: { beginAtZero: true, max: 1 } },
+                plugins: { title: { display: true, text: 'Influence Scores from MetaJudgeAgent' } }
+            }
+        });
+    </script>
+</body>
+</html>

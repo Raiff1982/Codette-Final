@@ -1,0 +1,147 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "K:\\Codette the DevUI\\Codette\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\pytensor\\link\\c\\c_code\\lazylinker_c.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dist\\Codette\\_internal\\pytensor\\link\\c\\c_code\\lazylinker_c.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\_public_dtype_api_table.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\_public_dtype_api_table.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\random\\libdivide.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\random\\libdivide.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\ndarraytypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\ndarraytypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\dtype_api.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\dtype_api.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\f2py\\src\\fortranobject.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dist\\Codette\\_internal\\numpy\\f2py\\src\\fortranobject.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\sklearn\\svm\\src\\libsvm\\libsvm_sparse_helper.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dist\\Codette\\_internal\\sklearn\\svm\\src\\libsvm\\libsvm_sparse_helper.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lazylinker_c.c",
+              "DocumentMoniker": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\pytensor\\link\\c\\c_code\\lazylinker_c.c",
+              "RelativeDocumentMoniker": "dist\\Codette\\_internal\\pytensor\\link\\c\\c_code\\lazylinker_c.c",
+              "ToolTip": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\pytensor\\link\\c\\c_code\\lazylinker_c.c",
+              "RelativeToolTip": "dist\\Codette\\_internal\\pytensor\\link\\c\\c_code\\lazylinker_c.c",
+              "ViewState": "AgIAAPADAAAAAAAAAAAkwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-09-08T23:51:13.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_public_dtype_api_table.h",
+              "DocumentMoniker": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\_public_dtype_api_table.h",
+              "RelativeDocumentMoniker": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\_public_dtype_api_table.h",
+              "ToolTip": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\_public_dtype_api_table.h",
+              "RelativeToolTip": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\_public_dtype_api_table.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-08T23:51:11.363Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "libdivide.h",
+              "DocumentMoniker": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\random\\libdivide.h",
+              "RelativeDocumentMoniker": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\random\\libdivide.h",
+              "ToolTip": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\random\\libdivide.h",
+              "RelativeToolTip": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\random\\libdivide.h",
+              "ViewState": "AgIAAE0DAAAAAAAAAAD4v1YDAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-08T23:51:05.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ndarraytypes.h",
+              "DocumentMoniker": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\ndarraytypes.h",
+              "RelativeDocumentMoniker": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\ndarraytypes.h",
+              "ToolTip": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\ndarraytypes.h",
+              "RelativeToolTip": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\ndarraytypes.h",
+              "ViewState": "AgIAADcHAAAAAAAAAAD4v0AHAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-08T23:51:05.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "dtype_api.h",
+              "DocumentMoniker": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\dtype_api.h",
+              "RelativeDocumentMoniker": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\dtype_api.h",
+              "ToolTip": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\dtype_api.h",
+              "RelativeToolTip": "dist\\Codette\\_internal\\numpy\\_core\\include\\numpy\\dtype_api.h",
+              "ViewState": "AgIAAMwBAAAAAAAAAAD4v9UBAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-08T23:51:01.571Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "fortranobject.c",
+              "DocumentMoniker": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\f2py\\src\\fortranobject.c",
+              "RelativeDocumentMoniker": "dist\\Codette\\_internal\\numpy\\f2py\\src\\fortranobject.c",
+              "ToolTip": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\numpy\\f2py\\src\\fortranobject.c",
+              "RelativeToolTip": "dist\\Codette\\_internal\\numpy\\f2py\\src\\fortranobject.c",
+              "ViewState": "AgIAAFEFAAAAAAAAAAD4v1oFAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-09-08T23:50:59.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "libsvm_sparse_helper.c",
+              "DocumentMoniker": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\sklearn\\svm\\src\\libsvm\\libsvm_sparse_helper.c",
+              "RelativeDocumentMoniker": "dist\\Codette\\_internal\\sklearn\\svm\\src\\libsvm\\libsvm_sparse_helper.c",
+              "ToolTip": "K:\\Codette the DevUI\\Codette\\dist\\Codette\\_internal\\sklearn\\svm\\src\\libsvm\\libsvm_sparse_helper.c",
+              "RelativeToolTip": "dist\\Codette\\_internal\\sklearn\\svm\\src\\libsvm\\libsvm_sparse_helper.c",
+              "ViewState": "AgIAAHYBAAAAAAAAAAAjwH8BAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-09-08T23:50:10.997Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

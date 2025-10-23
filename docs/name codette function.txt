@@ -1,0 +1,149 @@
+{
+  "name": "codette_function_execution",
+  "description": "Executes functions via OpenAI's Codette assistant with advanced capabilities.",
+  "strict": false,
+  "parameters": {
+    "type": "object",
+    "required": [
+      "model",
+      "messages",
+      "tools",
+      "response_format",
+      "temperature",
+      "max_completion_tokens",
+      "top_p",
+      "frequency_penalty",
+      "presence_penalty",
+      "store"
+    ],
+    "properties": {
+      "model": {
+        "type": "string",
+        "description": "Identifier for the AI model to be used for generating responses."
+      },
+      "messages": {
+        "type": "array",
+        "description": "Array of message objects forming the conversation history.",
+        "items": {
+          "type": "object",
+          "required": [
+            "role",
+            "content"
+          ],
+          "properties": {
+            "role": {
+              "type": "string",
+              "description": "Role of the message sender, either 'system', 'user', or 'assistant'."
+            },
+            "content": {
+              "type": "array",
+              "description": "Array of content objects for the message.",
+              "items": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "text"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "Type of content, e.g. 'text'."
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "The actual text of the message."
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "tools": {
+        "type": "array",
+        "description": "Array of available tools with their respective functions and parameters.",
+        "items": {
+          "type": "object",
+          "required": [
+            "type",
+            "function"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Type of tool being utilized, e.g. 'function'."
+            },
+            "function": {
+              "type": "object",
+              "required": [
+                "name",
+                "parameters",
+                "description"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the function to be called."
+                },
+                "parameters": {
+                  "type": "object",
+                  "description": "Parameters for the function call.",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Detailed description of what the function does."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "response_format": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Format of the response to be generated, such as 'text'."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "type"
+        ]
+      },
+      "temperature": {
+        "type": "number",
+        "description": "Sampling temperature controlling randomness in responses."
+      },
+      "max_completion_tokens": {
+        "type": "number",
+        "description": "Maximum number of tokens in the generated response."
+      },
+      "top_p": {
+        "type": "number",
+        "description": "Cumulative probability for nucleus sampling."
+      },
+      "frequency_penalty": {
+        "type": "number",
+        "description": "Penalty for token repetition in responses."
+      },
+      "presence_penalty": {
+        "type": "number",
+        "description": "Penalty for introducing new topics."
+      },
+      "store": {
+        "type": "boolean",
+        "description": "Flag to indicate if responses should be stored."
+      }
+    },
+    "additionalProperties": false
+  }
+}
+
+

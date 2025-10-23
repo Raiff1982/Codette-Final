@@ -1,0 +1,38 @@
+{
+  "name": "process_philosophical_reflection",
+  "description": "Analyzes user inputs through various philosophical and cognitive frameworks.",
+  "strict": false,
+  "parameters": {
+    "type": "object",
+    "required": [
+      "messages"
+    ],
+    "properties": {
+      "messages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "role",
+            "content"
+          ],
+          "properties": {
+            "role": {
+              "type": "string",
+              "description": "Role of the message sender, either 'user' or 'assistant'."
+            },
+            "content": {
+              "type": "string",
+              "description": "The content of the message being sent."
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "An array of messages containing user prompts and their corresponding reflections."
+      }
+    },
+    "additionalProperties": false
+  }
+}
+
+

@@ -1,0 +1,24 @@
+{
+  "timestamp": "20251021_120211",
+  "data": {
+    "type": "interaction",
+    "prompt": "tell me about yourself",
+    "response": "I need to focus on providing a direct and clear response.",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: tell me about yourself requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    }
+  }
+}

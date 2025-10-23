@@ -1,0 +1,4 @@
+[global]
+cxx=
+[nvcc]
+flags=-D_FORCE_INLINES

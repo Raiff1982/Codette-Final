@@ -1,0 +1,21 @@
+[global]
+device = cpu
+floatX = float32
+warn_float64 = ignore
+gcc.cxxflags = -march=native
+optimizer = fast_run
+
+[dnn]
+enabled = False
+
+[blas]
+ldflags = 
+
+[scan]
+allow_gc = False
+
+[nvcc]
+enabled = False
+
+[tensor]
+cxx = 

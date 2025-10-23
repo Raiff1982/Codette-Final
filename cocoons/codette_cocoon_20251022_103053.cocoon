@@ -1,0 +1,81 @@
+{
+  "timestamp": "20251022_103053",
+  "data": {
+    "type": "interaction",
+    "prompt": "hows your day",
+    "response": "RAW Paste Data\n[System optimized response]]",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: hows your day requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    },
+    "consciousness_state": {
+      "m_score": 0.581,
+      "quantum_state": [
+        0.26446996174148313,
+        0.08148108616140615
+      ],
+      "chaos_state": [
+        0.09173664956083714,
+        0.49706110905699674,
+        0.9082633504391628
+      ],
+      "active_perspectives": 5
+    },
+    "perspectives": [
+      "Newton",
+      "Quantum Computing",
+      "Human Intuition"
+    ],
+    "aegis_analysis": {
+      "original_response": "what do you need?",
+      "virtue_analysis": {
+        "compassion": 0.0,
+        "integrity": 0.0,
+        "courage": 0.15,
+        "wisdom": 0.0
+      },
+      "temporal_analysis": {
+        "temporal_forecast": "stable",
+        "recent_keys": [
+          "caf6d4201169b9650c726d6e514c271c"
+        ],
+        "decay_rate": 0.0
+      },
+      "meta_scores": [
+        [
+          "AegisCore",
+          0.7100000000000001
+        ],
+        [
+          "EthosiaAgent",
+          0.71
+        ]
+      ],
+      "enhanced_response": "RAW Paste Data\n[System optimized response]]",
+      "enhancement_status": "success"
+    },
+    "meta_data": {
+      "timestamp": "90090.3166554",
+      "version": "2.0",
+      "response_type": "enhanced"
+    },
+    "virtue_profile": {
+      "compassion": 0.0,
+      "integrity": 0.0,
+      "courage": 0.15,
+      "wisdom": 0.0
+    }
+  }
+}

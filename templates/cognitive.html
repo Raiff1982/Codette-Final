@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codette Cognitive Processing Interface</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%);
+            color: white;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cognitive-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .input-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .output-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .query-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        .perspective-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .perspective-option {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .perspective-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .perspective-option input {
+            margin-right: 0.5rem;
+        }
+
+        .btn-cognitive {
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-cognitive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .response-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            margin-right: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .tab.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0 8px 8px 8px;
+            padding: 1.5rem;
+            min-height: 300px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+
+        .perspective-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #ffd700;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .cognitive-interface {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <a href="/">🏠 Home</a>
+            <a href="/dashboard">📊 Dashboard</a>
+            <a href="/quantum">⚛️ Quantum</a>
+            <a href="/cognitive">🧠 Cognitive</a>
+        </nav>
+
+        <header class="header">
+            <h1>🧠 Cognitive Processing Interface</h1>
+            <p>Multi-perspective AI reasoning with recursive thought loops and ethical analysis</p>
+        </header>
+
+        <div class="cognitive-interface">
+            <div class="input-panel">
+                <h2>💭 Query Input</h2>
+                
+                <textarea 
+                    id="cognitiveQuery" 
+                    class="query-textarea"
+                    placeholder="Enter your question or prompt for Codette's cognitive analysis...
+
+Examples:
+- What is the ethical implications of AGI?
+- How should AI handle conflicting human values?
+- Explain consciousness from multiple perspectives
+- Design a solution for climate change"
+                ></textarea>
+                
+                <h3>🎭 Perspective Agents</h3>
+                <div class="perspective-selector">
+                    <div class="perspective-option">
+                        <input type="checkbox" id="scientific" checked>
+                        <label for="scientific">🔬 Scientific</label>
+                    </div>
+                    <div class="perspective-option">
+                        <input type="checkbox" id="creative" checked>
+                        <label for="creative">🎨 Creative</label>
+                    </div>
+                    <div class="perspective-option">
+                        <input type="checkbox" id="emotional" checked>
+                        <label for="emotional">❤️ Emotional</label>
+                    </div>
+                    <div class="perspective-option">
+                        <input type="checkbox" id="ethical">
+                        <label for="ethical">⚖️ Ethical</label>
+                    </div>
+                    <div class="perspective-option">
+                        <input type="checkbox" id="quantum">
+                        <label for="quantum">⚛️ Quantum</label>
+                    </div>
+                    <div class="perspective-option">
+                        <input type="checkbox" id="philosophical">
+                        <label for="philosophical">🤔 Philosophical</label>
+                    </div>
+                </div>
+                
+                <button onclick="processCognitiveQuery()" class="btn-cognitive">
+                    🧠 Process with Codette
+                </button>
+            </div>
+
+            <div class="output-panel">
+                <h2>🎯 Cognitive Analysis Results</h2>
+                
+                <div class="response-tabs">
+                    <button class="tab active" onclick="showTab('insights')">💡 Insights</button>
+                    <button class="tab" onclick="showTab('classic')">🧠 Classic</button>
+                    <button class="tab" onclick="showTab('cqure')">⚡ CQURE</button>
+                    <button class="tab" onclick="showTab('sentiment')">😊 Sentiment</button>
+                </div>
+                
+                <div id="insightsTab" class="tab-content">
+                    Select perspectives and enter a query to see Codette's multi-perspective analysis...
+                </div>
+                
+                <div id="classicTab" class="tab-content" style="display: none;">
+                    Classic Codette responses will appear here...
+                </div>
+                
+                <div id="cqureTab" class="tab-content" style="display: none;">
+                    CQURE system responses will appear here...
+                </div>
+                
+                <div id="sentimentTab" class="tab-content" style="display: none;">
+                    Sentiment analysis results will appear here...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'insights';
+        
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = ['insights', 'classic', 'cqure', 'sentiment'];
+            tabs.forEach(tab => {
+                document.getElementById(tab + 'Tab').style.display = 'none';
+                document.querySelector(`[onclick="showTab('${tab}')"]`).classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
+            currentTab = tabName;
+        }
+        
+        async function processCognitiveQuery() {
+            const query = document.getElementById('cognitiveQuery').value;
+            
+            if (!query.trim()) {
+                alert('Please enter a query for cognitive processing');
+                return;
+            }
+            
+            // Show processing state
+            const tabs = ['insights', 'classic', 'cqure', 'sentiment'];
+            tabs.forEach(tab => {
+                document.getElementById(tab + 'Tab').textContent = 'Processing cognitive analysis...';
+            });
+            
+            try {
+                const response = await fetch('/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        user_id: 'cognitive_user_' + Date.now()
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    tabs.forEach(tab => {
+                        document.getElementById(tab + 'Tab').textContent = `Error: ${data.error}`;
+                    });
+                } else {
+                    // Populate each tab with relevant data
+                    document.getElementById('insightsTab').textContent = 
+                        data.insights ? data.insights.join('\n\n') : 'No insights generated';
+                    
+                    document.getElementById('classicTab').textContent = 
+                        data.classic_response || 'No classic response generated';
+                    
+                    document.getElementById('cqureTab').textContent = 
+                        data.cqure_response || 'No CQURE response generated';
+                    
+                    document.getElementById('sentimentTab').textContent = 
+                        data.sentiment ? JSON.stringify(data.sentiment, null, 2) : 'No sentiment analysis';
+                }
+                
+            } catch (error) {
+                tabs.forEach(tab => {
+                    document.getElementById(tab + 'Tab').textContent = `Network Error: ${error.message}`;
+                });
+            }
+        }
+        
+        // Allow Enter key to submit (with Shift+Enter for new line)
+        document.getElementById('cognitiveQuery').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                processCognitiveQuery();
+            }
+        });
+    </script>
+</body>
+</html>

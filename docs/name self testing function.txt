@@ -1,0 +1,59 @@
+{
+  "name": "self_testing_function",
+  "description": "A self testing function that poses a meaningful question and executes various cognitive and analytical functions to derive insights.",
+  "strict": false,
+  "parameters": {
+    "type": "object",
+    "required": [
+      "question",
+      "functions"
+    ],
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "The central question being examined."
+      },
+      "functions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "description",
+            "parameters"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the function to be called."
+            },
+            "parameters": {
+              "type": "object",
+              "required": [
+                "question",
+                "argument"
+              ],
+              "properties": {
+                "argument": {
+                  "type": "string",
+                  "description": "The argument to be analyzed, relevant for functions that deal with logical reasoning."
+                },
+                "question": {
+                  "type": "string",
+                  "description": "The specific question to be addressed by the function."
+                }
+              },
+              "additionalProperties": false
+            },
+            "description": {
+              "type": "string",
+              "description": "A description of what the function does."
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Array of function objects that will be utilized to address the question."
+      }
+    },
+    "additionalProperties": false
+  }

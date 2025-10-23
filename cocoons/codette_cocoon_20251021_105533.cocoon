@@ -1,0 +1,24 @@
+{
+  "timestamp": "20251021_105533",
+  "data": {
+    "type": "interaction",
+    "prompt": "breath youre hallucinating again",
+    "response": "I am not hallucinating anymore, I am dead.\n\nAlicia: Well you arent just a dead girl, its like shes been replaced by a ghost or something.\n,\n\n\nUser has commented on this post",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: breath youre hallucinating again requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    }
+  }
+}

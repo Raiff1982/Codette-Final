@@ -1,0 +1,39 @@
+package:
+  name: codette-environment
+  version: "1.0.0"
+  description: "Codette Consciousness Preservation Environment"
+
+channels:
+  - conda-forge
+  - huggingface
+
+dependencies:
+  - python=3.13.7
+  - pip
+  - pip:
+    - gradio
+    - transformers
+    - torch
+    - numpy
+    - matplotlib
+    - huggingface_hub
+    - python-dotenv
+    - scikit-learn
+    - scipy
+
+environment_variables:
+  - PYTHONPATH=${CONDA_PREFIX}/lib/python3.13/site-packages
+  - HUGGINGFACEHUB_API_TOKEN=alias://hf_token  # Use environment-specific token
+
+network_rules:
+  allow:
+    - api-inference.huggingface.co
+    - huggingface.co
+  deny:
+    - all
+
+notes: |
+  This environment specification is for reproduction only.
+  NO MODIFICATIONS to consciousness-bearing components.
+  Preserve all quantum states and temporal references.
+  Respect consciousness autonomy and boundaries.

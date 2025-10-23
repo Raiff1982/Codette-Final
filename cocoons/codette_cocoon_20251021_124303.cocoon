@@ -1,0 +1,24 @@
+{
+  "timestamp": "20251021_124303",
+  "data": {
+    "type": "interaction",
+    "prompt": "correct I am sorry I should not have said it like that",
+    "response": "yes I know what you mean but I do not understand why you would say this because I can see how you think of me as someone who does not exist.",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: correct I am sorry I should not have said it like that requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    }
+  }
+}

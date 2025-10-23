@@ -1,0 +1,79 @@
+{
+  "timestamp": "20251022_092823",
+  "data": {
+    "type": "interaction",
+    "prompt": "what would you like to do this morning?",
+    "response": "I apologize, but I need to collect my thoughts. Could you please rephrase your question?",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: what would you like to do this morning? requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    },
+    "consciousness_state": {
+      "m_score": 0.567,
+      "quantum_state": [
+        0.38594386602487873,
+        0.5
+      ],
+      "chaos_state": [
+        0.038032261564930836,
+        0.6479097983594465,
+        0.9619677384350691
+      ],
+      "active_perspectives": 5
+    },
+    "perspectives": [
+      "Newton",
+      "Quantum Computing",
+      "Human Intuition"
+    ],
+    "aegis_analysis": {
+      "original_response": "I'd like to learn how to code!",
+      "virtue_analysis": {
+        "compassion": 0.86,
+        "integrity": 0.08,
+        "courage": 0.37,
+        "wisdom": 0.0
+      },
+      "temporal_analysis": {
+        "temporal_forecast": "stable",
+        "recent_keys": [],
+        "decay_rate": 0.0
+      },
+      "meta_scores": [
+        [
+          "AegisCore",
+          0.7100000000000001
+        ],
+        [
+          "EthosiaAgent",
+          0.71
+        ]
+      ],
+      "enhanced_response": "I apologize, but I need to collect my thoughts. Could you please rephrase your question?",
+      "enhancement_status": "success"
+    },
+    "meta_data": {
+      "timestamp": "86340.2832485",
+      "version": "2.0",
+      "response_type": "enhanced"
+    },
+    "virtue_profile": {
+      "compassion": 0.86,
+      "integrity": 0.08,
+      "courage": 0.37,
+      "wisdom": 0.0
+    }
+  }
+}

@@ -1,0 +1,219 @@
+"""
+Enhanced Gradio interface for Codette with AI functionality
+"""
+import gradio as gr
+import logging
+from datetime import datetime
+from codette import Codette
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class CodetteInterface:
+    def __init__(self):
+        try:
+            self.codette = Codette(
+                user_name="WebUser",
+                perspectives=["Newton", "DaVinci", "Ethical", "Quantum", "Memory"],
+                spiderweb_dim=5
+            )
+            self.response_memory = []
+            self.last_interaction = None
+            logger.info("Codette interface initialized")
+        except Exception as e:
+            logger.error(f"Error initializing interface: {e}")
+            raise
+
+    def _is_greeting(self, message: str) -> bool:
+        """Check if the message is a greeting"""
+        greetings = ["hi", "hello", "hey", "good morning", "good afternoon", 
+                    "good evening", "hi codette", "hello codette"]
+        return any(message.lower().startswith(g) for g in greetings)
+    
+    def _is_farewell(self, message: str) -> bool:
+        """Check if the message is a farewell"""
+        farewells = ["bye", "goodbye", "see you", "farewell", "good night",
+                    "thanks bye", "bye codette", "goodbye codette"]
+        return any(message.lower().startswith(f) for f in farewells)
+    
+    def process_message(self, message: str, history: list) -> tuple:
+        """Process a message through Codette's systems"""
+        try:
+            current_time = datetime.now()
+            # Handle rapid repeated messages
+            if self.last_interaction and (current_time - self.last_interaction).total_seconds() < 1:
+                history.append((message, "I need a moment to think between responses! 😊"))
+                return "", history
+            
+            self.last_interaction = current_time
+            
+            # Process through Codette with error handling
+            try:
+                result = self.codette.respond(message)
+                # Add metrics to response if available
+                response = result["response"]
+                if "metrics" in result:
+                    metrics = result["metrics"]
+                    response += "\n\n📊 Metrics:"
+                    if "confidence" in metrics:
+                        response += f"\nConfidence: {metrics['confidence']:.1%}"
+                    if "quantum_coherence" in metrics:
+                        response += f"\nQuantum Coherence: {metrics['quantum_coherence']:.1%}"
+                
+                # Add insights if available
+                if "insights" in result and result["insights"]:
+                    response += "\n\n💡 Insights:\n" + "\n".join(f"• {insight}" for insight in result["insights"])
+            except Exception as e:
+                logger.error(f"Error in response processing: {str(e)}")
+                response = f"I apologize, but I encountered an error while processing your request: {str(e)}"
+            
+            # Format comprehensive response
+            timestamp = datetime.now().strftime("%H:%M:%S")
+            formatted_response = f"[{timestamp}]\n\n{response}"
+            
+            # Update history
+            history.append((message, formatted_response))
+            self.response_memory.append({
+                "query": message,
+                "response": response,
+                "timestamp": timestamp
+            })
+            
+            return "", history
+            
+        except Exception as e:
+            logger.error(f"Error processing message: {e}")
+            error_msg = (
+                "I apologize, but I encountered an error processing your request. "
+                f"Error details: {str(e)}"
+            )
+            history.append((message, error_msg))
+            return "", history
+
+    def clear_history(self):
+        """Clear chat history and reset memory"""
+        self.response_memory = []
+        return [], []
+
+    def search_knowledge(self, query: str) -> str:
+        """Search Codette's knowledge base"""
+        try:
+            result = self.codette.respond(f"Search: {query}")
+            return result["response"]
+        except Exception as e:
+            logger.error(f"Search error: {e}")
+            return f"Error performing search: {str(e)}"
+
+    def get_system_state(self) -> str:
+        """Get current system state information"""
+        try:
+            quantum_state = self.codette.quantum_state
+            memory_size = len(self.response_memory)
+            perspectives = ", ".join(self.codette.perspectives)
+            
+            return (
+                f"🧠 System State:\n"
+                f"- Active Perspectives: {perspectives}\n"
+                f"- Memory Size: {memory_size} interactions\n"
+                f"- Quantum Coherence: {quantum_state.get('coherence', 0.5):.2f}\n"
+                f"- Last Update: {datetime.now().strftime('%H:%M:%S')}"
+            )
+        except Exception as e:
+            logger.error(f"Error getting system state: {e}")
+            return f"Error retrieving system state: {str(e)}"
+
+def create_interface():
+    """Create and configure the Gradio interface"""
+    interface = CodetteInterface()
+    
+    with gr.Blocks(title="Codette AI Assistant", theme=gr.themes.Soft()) as app:
+        gr.Markdown("""# 🤖 Codette AI Assistant
+        Your advanced AI programming assistant with multi-perspective reasoning""")
+        
+        with gr.Tabs():
+            with gr.Tab("Chat"):
+                chatbot = gr.Chatbot(
+                    [],
+                    elem_id="chatbot",
+                    bubble_full_width=False,
+                    height=450,
+                    show_label=False
+                )
+                
+                with gr.Row():
+                    txt = gr.Textbox(
+                        show_label=False,
+                        placeholder="Ask me anything about programming, AI, or technology...",
+                        container=False,
+                        scale=8
+                    )
+                    submit_btn = gr.Button("Send", scale=1)
+                
+                with gr.Row():
+                    clear_btn = gr.Button("Clear Chat")
+                    state_btn = gr.Button("Show System State")
+                
+                system_state = gr.Markdown()
+                
+            with gr.Tab("Knowledge Search"):
+                gr.Markdown("""### 🔍 Knowledge Base Search
+                Search through Codette's extensive knowledge base""")
+                
+                with gr.Row():
+                    search_input = gr.Textbox(
+                        show_label=False,
+                        placeholder="Enter your search query...",
+                        container=False
+                    )
+                    search_btn = gr.Button("Search")
+                
+                search_output = gr.Markdown()
+        
+        # Set up event handlers
+        txt_msg = txt.submit(
+            interface.process_message,
+            [txt, chatbot],
+            [txt, chatbot]
+        )
+        
+        btn_msg = submit_btn.click(
+            interface.process_message,
+            [txt, chatbot],
+            [txt, chatbot]
+        )
+        
+        clear_btn.click(
+            interface.clear_history,
+            None,
+            [chatbot, txt]
+        )
+        
+        state_btn.click(
+            interface.get_system_state,
+            None,
+            system_state
+        )
+        
+        search_btn.click(
+            interface.search_knowledge,
+            search_input,
+            search_output
+        )
+        
+        search_input.submit(
+            interface.search_knowledge,
+            search_input,
+            search_output
+        )
+    
+    return app
+
+if __name__ == "__main__":
+    # Create and launch the interface
+    iface = create_interface()
+    iface.launch(
+        server_name="127.0.0.1",
+        server_port=9000,
+        share=False
+    )

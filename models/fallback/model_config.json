@@ -1,0 +1,36 @@
+{
+    "model_mappings": {
+        "nlp_transformer": {
+            "fallback": "bert-base-uncased",
+            "type": "nlp",
+            "task": "general"
+        },
+        "vision_analyzer": {
+            "fallback": "resnet18",
+            "type": "vision",
+            "task": "classification"
+        },
+        "quantum_simulator": {
+            "fallback": "classical_approximation",
+            "type": "quantum",
+            "task": "simulation"
+        }
+    },
+    "fallback_priorities": {
+        "nlp": [
+            "bert-base-uncased",
+            "distilbert-base-uncased",
+            "roberta-base"
+        ],
+        "vision": [
+            "resnet18",
+            "mobilenet_v2",
+            "efficientnet_b0"
+        ],
+        "quantum": [
+            "classical_approximation",
+            "tensor_network",
+            "statistical_model"
+        ]
+    }
+}

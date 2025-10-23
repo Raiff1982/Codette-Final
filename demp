@@ -1,0 +1,9 @@
+## 🧪 Executable Demo
+
+Run Codette's reasoning system locally with real quantum simulation and ethical constraints.
+
+▶️ [Codette_Demo.ipynb](./Codette_Executable_Demo/Codette_Demo.ipynb)  
+Includes:
+- Dream-state simulation
+- Entropy-based ethical filters
+- Quantum-inspired optimizers

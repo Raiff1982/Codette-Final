@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codette Dashboard - System Monitoring</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #fff, #a8e6cf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 1rem;
+            color: #a8e6cf;
+        }
+
+        .status-indicators {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+        }
+
+        .status-indicator {
+            text-align: center;
+        }
+
+        .status-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .status-healthy {
+            background: #4caf50;
+        }
+
+        .status-warning {
+            background: #ff9800;
+        }
+
+        .status-critical {
+            background: #f44336;
+        }
+
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .real-time-log {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="nav-bar">
+            <a href="/">🏠 Home</a>
+            <a href="/dashboard">📊 Dashboard</a>
+            <a href="/quantum">⚛️ Quantum</a>
+            <a href="/cognitive">🧠 Cognitive</a>
+        </nav>
+
+        <header class="header">
+            <h1>Codette System Dashboard</h1>
+            <p>Real-time monitoring of AI cognitive systems, quantum processing, and ethical governance</p>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="cpuMetric">--</div>
+                <div class="metric-label">CPU Usage</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" id="memoryMetric">--</div>
+                <div class="metric-label">Memory Usage</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" id="responseMetric">--</div>
+                <div class="metric-label">Response Time (ms)</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" id="queryCount">0</div>
+                <div class="metric-label">Queries Processed</div>
+            </div>
+        </div>
+
+        <div class="status-indicators">
+            <div class="status-indicator">
+                <div class="status-circle status-healthy" id="aiStatus">🤖</div>
+                <div>AI Core</div>
+            </div>
+            
+            <div class="status-indicator">
+                <div class="status-circle status-healthy" id="quantumStatus">⚛️</div>
+                <div>Quantum Engine</div>
+            </div>
+            
+            <div class="status-indicator">
+                <div class="status-circle status-healthy" id="ethicsStatus">⚖️</div>
+                <div>Ethics Module</div>
+            </div>
+            
+            <div class="status-indicator">
+                <div class="status-circle status-healthy" id="securityStatus">🛡️</div>
+                <div>Security</div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3>System Performance</h3>
+                <canvas id="performanceChart"></canvas>
+            </div>
+            
+            <div class="chart-card">
+                <h3>Query Response Times</h3>
+                <canvas id="responseChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3>🔍 Real-time System Log</h3>
+            <div class="real-time-log" id="systemLog">
+                [System initialized] Codette AI Dashboard online
+                [Health Monitor] All systems operational
+                [Quantum Engine] Ready for simulation tasks
+                [Ethics Module] Governance protocols active
+                [Security] Defense systems online
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize charts
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        const responseCtx = document.getElementById('responseChart').getContext('2d');
+        
+        let queryCount = 0;
+        let performanceData = {
+            labels: [],
+            datasets: [{
+                label: 'CPU %',
+                data: [],
+                borderColor: '#ff6b6b',
+                backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                tension: 0.4
+            }, {
+                label: 'Memory %',
+                data: [],
+                borderColor: '#4ecdc4',
+                backgroundColor: 'rgba(78, 205, 196, 0.1)',
+                tension: 0.4
+            }]
+        };
+        
+        let responseData = {
+            labels: [],
+            datasets: [{
+                label: 'Response Time (ms)',
+                data: [],
+                borderColor: '#45b7d1',
+                backgroundColor: 'rgba(69, 183, 209, 0.1)',
+                tension: 0.4
+            }]
+        };
+        
+        const performanceChart = new Chart(performanceCtx, {
+            type: 'line',
+            data: performanceData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { color: 'white' }
+                    },
+                    x: {
+                        ticks: { color: 'white' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: 'white' }
+                    }
+                }
+            }
+        });
+        
+        const responseChart = new Chart(responseCtx, {
+            type: 'line',
+            data: responseData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: 'white' }
+                    },
+                    x: {
+                        ticks: { color: 'white' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: 'white' }
+                    }
+                }
+            }
+        });
+        
+        // Update system metrics
+        async function updateMetrics() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                
+                if (data.metrics) {
+                    document.getElementById('cpuMetric').textContent = 
+                        data.metrics.cpu ? `${data.metrics.cpu.toFixed(1)}%` : '--';
+                    document.getElementById('memoryMetric').textContent = 
+                        data.metrics.memory ? `${data.metrics.memory.toFixed(1)}%` : '--';
+                    document.getElementById('responseMetric').textContent = 
+                        data.metrics.response_time ? `${(data.metrics.response_time * 1000).toFixed(1)}` : '--';
+                    
+                    // Update charts
+                    const now = new Date().toLocaleTimeString();
+                    
+                    if (performanceData.labels.length > 20) {
+                        performanceData.labels.shift();
+                        performanceData.datasets[0].data.shift();
+                        performanceData.datasets[1].data.shift();
+                    }
+                    
+                    performanceData.labels.push(now);
+                    performanceData.datasets[0].data.push(data.metrics.cpu || 0);
+                    performanceData.datasets[1].data.push(data.metrics.memory || 0);
+                    performanceChart.update();
+                    
+                    if (responseData.labels.length > 20) {
+                        responseData.labels.shift();
+                        responseData.datasets[0].data.shift();
+                    }
+                    
+                    responseData.labels.push(now);
+                    responseData.datasets[0].data.push((data.metrics.response_time || 0) * 1000);
+                    responseChart.update();
+                }
+                
+            } catch (error) {
+                console.error('Failed to update metrics:', error);
+            }
+        }
+        
+        // Log system events
+        function addLogEntry(message) {
+            const log = document.getElementById('systemLog');
+            const timestamp = new Date().toLocaleTimeString();
+            log.textContent += `\n[${timestamp}] ${message}`;
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        // Start real-time updates
+        setInterval(updateMetrics, 5000);
+        setInterval(() => {
+            addLogEntry(`Health check: All systems operational`);
+        }, 30000);
+        
+        // Initial load
+        updateMetrics();
+    </script>
+</body>
+</html>

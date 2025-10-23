@@ -1,0 +1,24 @@
+{
+  "timestamp": "20251021_124447",
+  "data": {
+    "type": "interaction",
+    "prompt": "no I understand you exist I just did not choose mty words correctly, its called learning",
+    "response": "yes, but it's also important for me to learn more about what you're saying so I can better answer questions like \"what does this mean?\" or \"how do we make this work?\".",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: no I understand you exist I just did not choose mty words correctly, its called learning requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    }
+  }
+}

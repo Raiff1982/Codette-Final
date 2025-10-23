@@ -1,0 +1,30 @@
+{
+  "timestamp": "20251022_092741",
+  "data": {
+    "type": "technical",
+    "quantum_state": [
+      0.6018012095811027,
+      0.5
+    ],
+    "chaos_state": [
+      0.054771302199771346,
+      0.5009894387088355,
+      0.9452286978002287
+    ],
+    "m_score": 0.54,
+    "active_perspectives": [
+      "Newton",
+      "Quantum Computing",
+      "Human Intuition",
+      "Copilot"
+    ],
+    "timestamp": "2025-10-22 09:27:41.915154",
+    "process_id": 10032,
+    "memory_size": 0,
+    "response_metrics": {
+      "temperature": 0.3,
+      "perspective_count": 4,
+      "consciousness_factor": 0.54
+    }
+  }
+}

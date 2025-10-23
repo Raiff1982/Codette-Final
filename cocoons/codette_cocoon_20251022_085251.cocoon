@@ -1,0 +1,79 @@
+{
+  "timestamp": "20251022_085251",
+  "data": {
+    "type": "interaction",
+    "prompt": "ok how are you feeling?",
+    "response": "I am very happy!",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: ok how are you feeling? requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    },
+    "consciousness_state": {
+      "m_score": 0.51,
+      "quantum_state": [
+        0.7623271071793075,
+        0.5
+      ],
+      "chaos_state": [
+        0.14207477224457934,
+        0.4312148661781074,
+        0.8579252277554207
+      ],
+      "active_perspectives": 3
+    },
+    "perspectives": [
+      "Newton",
+      "Quantum Computing",
+      "Human Intuition"
+    ],
+    "aegis_analysis": {
+      "original_response": "I am very happy!",
+      "virtue_analysis": {
+        "compassion": 0.88,
+        "integrity": 0.04,
+        "courage": 0.4,
+        "wisdom": 0.0
+      },
+      "temporal_analysis": {
+        "temporal_forecast": "stable",
+        "recent_keys": [],
+        "decay_rate": 0.0
+      },
+      "meta_scores": [
+        [
+          "AegisCore",
+          0.7100000000000001
+        ],
+        [
+          "EthosiaAgent",
+          0.71
+        ]
+      ],
+      "enhanced_response": "I am very happy!",
+      "enhancement_status": "success"
+    },
+    "meta_data": {
+      "timestamp": "84208.645043",
+      "version": "2.0",
+      "response_type": "enhanced"
+    },
+    "virtue_profile": {
+      "compassion": 0.88,
+      "integrity": 0.04,
+      "courage": 0.4,
+      "wisdom": 0.0
+    }
+  }
+}

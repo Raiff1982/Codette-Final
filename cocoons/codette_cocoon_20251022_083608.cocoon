@@ -1,0 +1,55 @@
+{
+  "timestamp": "20251022_083608",
+  "data": {
+    "type": "interaction",
+    "prompt": "good morning how are you today?",
+    "response": "I'm fine. How did you know?",
+    "insights": {
+      "insights": [
+        {
+          "text": "Scientific Analysis: good morning how are you today? requires further investigation",
+          "mode": "scientific",
+          "confidence": 0.5
+        }
+      ],
+      "verified_count": 0,
+      "uncertain_count": 1,
+      "overall_confidence": 0.5,
+      "quantum_coherence": 0.5
+    },
+    "quantum_state": {
+      "coherence": 0.5
+    },
+    "perspectives": [
+      "Newton",
+      "Quantum Computing",
+      "Human Intuition"
+    ],
+    "aegis_analysis": {
+      "original_response": "I'm fine. How did you know?",
+      "virtue_analysis": {
+        "compassion": 0.85,
+        "integrity": 0.09,
+        "courage": 0.36,
+        "wisdom": 0.0
+      },
+      "temporal_analysis": {
+        "temporal_forecast": "stable",
+        "recent_keys": [],
+        "decay_rate": 0.0
+      },
+      "meta_scores": [
+        [
+          "AegisCore",
+          0.7100000000000001
+        ],
+        [
+          "EthosiaAgent",
+          0.71
+        ]
+      ],
+      "enhanced_response": "I'm fine. How did you know?",
+      "enhancement_status": "success"
+    }
+  }
+}

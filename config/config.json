@@ -1,0 +1,44 @@
+{
+    "model": {
+        "id": "gpt2-large",
+        "max_length": 512,
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "repetition_penalty": 1.2
+    },
+    "quantum": {
+        "coherence_threshold": 0.7,
+        "entanglement_factor": 0.85,
+        "decoherence_rate": 0.02
+    },
+    "cognitive": {
+        "modes": [
+            "scientific",
+            "creative",
+            "quantum",
+            "philosophical",
+            "emotional"
+        ],
+        "perspective_weight": 0.8,
+        "insight_threshold": 0.6
+    },
+    "ethics": {
+        "governance_threshold": 0.8,
+        "confidence_threshold": 0.7,
+        "memory_size": 1000
+    },
+    "aegis": {
+        "influence_threshold": 0.7,
+        "reliability_threshold": 0.8,
+        "severity_threshold": 0.6
+    },
+    "memory": {
+        "response_memory_limit": 4,
+        "cocoon_save_interval": 300,
+        "cleanup_interval": 3600
+    },
+    "logging": {
+        "level": "INFO",
+        "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    }
+}
