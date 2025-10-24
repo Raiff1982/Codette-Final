@@ -127,11 +127,16 @@ class CodetteInterface:
 
                 # If the response is a fallback or unclear, make it more conversational
                 fallback_phrases = [
-                    "I apologize, but I need to collect my thoughts.",
-                    "Could you please rephrase your question?",
-                    "I'm not sure I understood that."
+                    "i apologize, but i need to collect my thoughts",
+                    "could you please rephrase your question",
+                    "i'm not sure i understood",
+                    "i'm not sure i understand",
+                    "i'm not sure what you mean",
+                    "can you rephrase",
+                    "please rephrase"
                 ]
-                if any(phrase in response for phrase in fallback_phrases):
+                response_lower = response.lower()
+                if any(phrase in response_lower for phrase in fallback_phrases):
                     response = (
                         "Hmm, I want to give you the best answer I can! "
                         "Could you clarify or ask in a different way? Or just tell me more about what you're working on. 😊"
