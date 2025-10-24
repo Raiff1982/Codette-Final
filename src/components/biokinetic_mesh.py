@@ -25,9 +25,28 @@ class SynapticNode:
     
     def __post_init__(self):
         self.connections = self.connections or {}
-        self.activation_pattern = self.activation_pattern or np.random.rand(128)
+        if self.activation_pattern is None:
+            self.activation_pattern = np.random.rand(128)
 
 class BioKineticMesh:
+    def get_state(self):
+        """Return a serializable state of the mesh for saving in memory."""
+        # Example: Save node energies and optionally other simple attributes
+        return {
+            'nodes': {
+                node_id: {
+                    'energy': node.energy,
+                    'activation_pattern': node.activation_pattern.tolist() if hasattr(node.activation_pattern, 'tolist') else node.activation_pattern,
+                    'connections': node.connections
+                }
+                for node_id, node in self.nodes.items()
+            },
+            'energy_threshold': self.energy_threshold,
+            'learning_rate': self.learning_rate,
+            'prune_threshold': self.prune_threshold,
+            'quantum_influence': getattr(self, 'quantum_influence', None),
+            'perspective_resonance': getattr(self, 'perspective_resonance', None)
+        }
     """
     Biokinetic Neural Mesh - A biomimetic routing system
     

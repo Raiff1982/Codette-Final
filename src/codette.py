@@ -147,27 +147,20 @@ class Codette:
             }
     
     def _text_to_pattern(self, text: str) -> np.ndarray:
-        """Convert text to a numerical pattern vector"""
+        """Convert text to a numerical pattern vector (128-dim for mesh compatibility)"""
         try:
-            # Simple averaging of word vectors
             words = text.lower().split()
-            pattern = np.zeros(256)  # Reduced dimensionality
-            
+            pattern = np.zeros(128)  # Match mesh node activation_pattern size
             for word in words:
-                # Generate simple word vector (placeholder for actual embedding)
-                word_hash = hash(word) % 256
+                word_hash = hash(word) % 128
                 pattern[word_hash] = 1.0
-            
-            # Normalize pattern
             pattern_sum = np.sum(pattern)
             if pattern_sum > 0:
                 pattern = pattern / pattern_sum
-                
             return pattern
-            
         except Exception as e:
             logger.error(f"Error converting text to pattern: {e}")
-            return np.zeros(256)
+            return np.zeros(128)
             
     def _initialize_memory(self):
         """Initialize memory from file or create new"""

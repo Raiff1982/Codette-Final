@@ -10,6 +10,9 @@ from datetime import datetime
 import json
 import asyncio
 from typing import Dict, Any
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 from codette import Codette
 
 # Configure logging
@@ -43,9 +46,7 @@ class CodetteInterface:
         # Initialize Codette
         try:
             self.codette = Codette(
-                user_name="WebUser",
-                perspectives=self.config["perspectives"],
-                spiderweb_dim=self.config["spiderweb_dim"]
+                user_name="WebUser"
             )
             self.response_memory = []
             self.last_interaction = None
