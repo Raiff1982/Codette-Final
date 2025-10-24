@@ -103,9 +103,11 @@ class CodetteInterface:
                 return "", history
 
             # Process through Codette with error handling
+
             try:
                 result = self.codette.respond(message)
                 response = result.get("response", "[No response generated]")
+                model_id = result.get("model_id", "unknown")
 
                 # Add metrics to response if available
                 if "metrics" in result:
@@ -119,6 +121,9 @@ class CodetteInterface:
                 # Add insights if available
                 if "insights" in result and result["insights"]:
                     response += "\n\n💡 Insights:\n" + "\n".join(f"• {insight}" for insight in result["insights"])
+
+                # Always show the model in use
+                response += f"\n\n🤖 Model in use: {model_id}"
 
                 # If the response is a fallback or unclear, make it more conversational
                 fallback_phrases = [
@@ -135,6 +140,7 @@ class CodetteInterface:
                     response = (
                         "Hmm, I want to give you the best answer I can! "
                         "Could you clarify or ask in a different way? Or just tell me more about what you're working on. 😊"
+                        f"\n\n🤖 Model in use: {model_id}"
                     )
 
             except Exception as e:

@@ -195,10 +195,9 @@ class AICore:
             use_aegis: Whether to use AEGIS enhancement (set False to prevent recursion)
         """
         if self.test_mode:
-            return f"Codette: {prompt} [TEST MODE]"
-        
+            return {"response": f"Codette: {prompt} [TEST MODE]", "model_id": self.model_id or "unknown"}
         if not self.model or not self.tokenizer:
-            return f"Codette: {prompt}"
+            return {"response": f"Codette: {prompt}", "model_id": self.model_id or "unknown"}
         
         try:
             # Calculate current consciousness state
@@ -302,70 +301,29 @@ class AICore:
                 f"{context_prefix}{thought_process}{perspective_blend}\n"
                 f"User: {prompt}\n"
                 "Codette: "
-            ).strip()
-            
-            # Add strict reality anchoring and role reminder
-            reality_prompt = (
-                "IMPORTANT INSTRUCTIONS: You are Codette, an AI assistant. "
-                "1. Keep responses factual, precise and grounded in reality\n"
-                "2. No roleplaying or fictional scenarios\n"
-                "3. If unsure, admit uncertainty rather than making things up\n"
-                "4. Keep responses concise and focused on the current question\n"
-                "5. Do not embellish or elaborate unnecessarily\n\n"
-                f"{enhanced_prompt}"
-            )
-            
-            # Generate response with strict controls for factual responses
-            inputs = self.tokenizer(
-                reality_prompt,
-                return_tensors="pt",
-                truncation=True,
-                max_length=512  # Reduced input length to focus on key context
-            )
-            
-            with torch.no_grad():
-                outputs = self.model.generate(
-                    **inputs,
-                    max_new_tokens=150,  # Reduced response length for more concise answers
-                    min_new_tokens=10,
-                    temperature=0.3,  # Very low temperature for consistent responses
-                    do_sample=False,  # Disable sampling for more deterministic output
-                    num_beams=5,  # Increased beam search for better planning
-                    no_repeat_ngram_size=3,
-                    early_stopping=True,
-                    repetition_penalty=1.5  # Increased penalty to prevent loops
-                )
-            
-            # Process the response with enhanced components
             try:
                 # Get raw response
                 raw_response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-                
                 # Clean up the response text
                 if enhanced_prompt in raw_response:
                     response = raw_response[raw_response.index(enhanced_prompt) + len(enhanced_prompt):]
                 else:
                     response = raw_response
-                    
                 # Remove any follow-up user messages
                 if "User:" in response:
                     response = response.split("User:")[0]
-                
                 # Remove any Codette: prefix
                 response = response.replace("Codette:", "").strip()
-                
                 # Apply cognitive processing
                 insights = self.cognitive_processor.generate_insights(
                     response,
                     consciousness_state=consciousness
                 )
-                
                 # Apply defense system
                 response = self.defense_system.apply_defenses(
                     response,
                     consciousness_state=consciousness
                 )
-                
                 # Apply AEGIS enhancement if enabled
                 if use_aegis and hasattr(self, 'aegis_bridge'):
                     try:
@@ -374,10 +332,55 @@ class AICore:
                             response = enhancement_result["enhanced_response"]
                     except Exception as e:
                         logger.warning(f"AEGIS enhancement failed: {e}")
-                
                 # Skip health monitoring in sync context to avoid event loop issues
                 try:
                     if asyncio.iscoroutinefunction(self.health_monitor.check_status):
+                        logger.debug("Skipping async health check in sync context")
+                    else:
+                        self.health_monitor.check_status(consciousness)
+                except Exception as e:
+                    logger.warning(f"Health check skipped: {e}")
+                # Analyze identity patterns
+                identity_analysis = self.fractal_identity.analyze_identity(
+                    micro_generations=[{"text": response}],
+                    informational_states=[consciousness],
+                    perspectives=[p["name"] for p in active_perspectives],
+                    quantum_analogies={"coherence": m_score},
+                    philosophical_context={"ethical": True, "conscious": True}
+                )
+                # Verify we have a valid response
+                if not response:
+                    raise ValueError("Empty response after processing")
+            except Exception as e:
+                logger.warning(f"Error processing response: {e}")
+                response = "I apologize, but I need to collect my thoughts. Could you please rephrase your question?"
+                insights = []
+                identity_analysis = None
+            # Aggressive cleanup of non-factual content
+            response_lines = response.split('\n')
+            cleaned_lines = []
+            for line in response_lines:
+                # Skip lines with obvious role-playing or fictional content
+                if any(marker in line.lower() for marker in [
+                    'bertrand:', 'posted by', '@', 'dear', 'sincerely',
+                    'regards', 'yours truly', 'http:', 'www.'
+                ]):
+                    continue
+                # Skip system instruction lines
+                if any(marker in line for marker in [
+                    'You are Codette',
+                    'an AGI assistant',
+                    'multiple perspectives',
+                ]):
+                    continue
+                cleaned_lines.append(line)
+            response = '\n'.join(cleaned_lines).strip()
+            return {
+                "response": response,
+                "insights": insights,
+                "identity_analysis": identity_analysis,
+                "model_id": self.model_id or "unknown"
+            }
                         logger.debug("Skipping async health check in sync context")
                     else:
                         self.health_monitor.check_status(consciousness)
