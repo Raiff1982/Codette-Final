@@ -14,9 +14,9 @@ logger = logging.getLogger(__name__)
 
 # Core AI System
 try:
-    from ai_core import AICore
-    from ai_core_system import AICore as AISystemCore
-    from ai_core_identityscan import AICore as AIIdentityCore
+    from components.ai_core import AICore
+    from components.ai_core_system import AICore as AISystemCore
+    from components.ai_core_identityscan import AICore as AIIdentityCore
 except ImportError as e:
     logger.warning(f"Core AI imports failed: {e}")
     AICore = AISystemCore = AIIdentityCore = None
@@ -30,10 +30,10 @@ except ImportError as e:
 
 # Essential Components
 try:
-    from components.cognitive_processor import CognitiveProcessor 
-    from cognitive_auth import CognitiveAuthManager
-    from defense_system import DefenseSystem
-    from health_monitor import HealthMonitor
+    from components.cognitive_processor import CognitiveProcessor
+    from components.cognitive_auth import CognitiveAuthManager
+    from components.defense_system import DefenseSystem
+    from components.health_monitor import HealthMonitor
     from config_manager import EnhancedAIConfig
 except ImportError as e:
     logger.warning(f"Essential components import failed: {e}")
@@ -42,10 +42,10 @@ except ImportError as e:
 
 # BioKinetic and Advanced Systems
 try:
-    from biokinetic_mesh import BioKineticMesh
-    from quantum_spiderweb import QuantumSpiderweb
-    from pattern_library import PatternLibrary
-    from fractal import analyze_identity
+    from components.biokinetic_mesh import BioKineticMesh
+    from quantum.quantum_spiderweb import QuantumSpiderweb
+    from components.pattern_library import PatternLibrary
+    from components.fractal import analyze_identity
 except ImportError as e:
     logger.warning(f"Advanced systems import failed: {e}")
     BioKineticMesh = QuantumSpiderweb = PatternLibrary = analyze_identity = None
