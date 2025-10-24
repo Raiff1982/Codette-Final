@@ -31,7 +31,7 @@ except ImportError as e:
 # Essential Components
 try:
     from components.cognitive_processor import CognitiveProcessor
-    from components.cognitive_auth import CognitiveAuthManager
+    # from components.cognitive_auth import CognitiveAuthManager  # Module missing
     from components.defense_system import DefenseSystem
     from components.health_monitor import HealthMonitor
     from config_manager import EnhancedAIConfig
@@ -43,12 +43,12 @@ except ImportError as e:
 # BioKinetic and Advanced Systems
 try:
     from components.biokinetic_mesh import BioKineticMesh
-    from quantum.quantum_spiderweb import QuantumSpiderweb
+    QuantumSpiderweb = None  # Module missing
     from components.pattern_library import PatternLibrary
     from components.fractal import analyze_identity
 except ImportError as e:
     logger.warning(f"Advanced systems import failed: {e}")
-    BioKineticMesh = QuantumSpiderweb = PatternLibrary = analyze_identity = None
+    BioKineticMesh = PatternLibrary = analyze_identity = None
 
 # Scientific and AI Libraries
 try:
@@ -107,7 +107,7 @@ class CodetteImportManager:
             "health_monitor": HealthMonitor is not None,
             "advanced_systems": {
                 "biokinetic": BioKineticMesh is not None,
-                "quantum": QuantumSpiderweb is not None,
+                "quantum": False,
                 "patterns": PatternLibrary is not None,
                 "fractal": analyze_identity is not None
             },
@@ -166,7 +166,7 @@ class CodetteImportManager:
                 
                 # Configure additional systems
                 if self.available_modules["advanced_systems"]["quantum"]:
-                    codette.quantum_web = QuantumSpiderweb(node_count=128)
+                    codette.quantum_web = None  # QuantumSpiderweb unavailable
                     
                 if self.available_modules["cognitive"]["processor"]:
                     codette.cognitive_processor = CognitiveProcessor(
@@ -198,7 +198,7 @@ __all__ = [
     'DefenseSystem',
     'HealthMonitor',
     'BioKineticMesh',
-    'QuantumSpiderweb',
+    # 'QuantumSpiderweb',  # Module missing
     'PatternLibrary',
     'analyze_identity',
     'EnhancedAIConfig'
