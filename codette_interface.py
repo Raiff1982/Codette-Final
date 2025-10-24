@@ -57,9 +57,11 @@ class CodetteInterface:
 
     def _is_greeting(self, message: str) -> bool:
         """Check if the message is a greeting"""
-        greetings = ["hi", "hello", "hey", "good morning", "good afternoon", 
-                    "good evening", "hi codette", "hello codette"]
-        return any(message.lower().startswith(g) for g in greetings)
+        greetings = [
+            "hi", "hello", "hey", "good morning", "good afternoon", "good evening",
+            "hi codette", "hello codette", "greetings", "howdy", "yo", "hiya", "hey there"
+        ]
+        return any(g in message.lower() for g in greetings)
     
     def _is_farewell(self, message: str) -> bool:
         """Check if the message is a farewell"""
@@ -71,22 +73,45 @@ class CodetteInterface:
         """Process a message through Codette's systems"""
         try:
             current_time = datetime.now()
-            
+
             # Handle rapid repeated messages
             if self.last_interaction and (current_time - self.last_interaction).total_seconds() < 1:
-                response = "I need a moment to think between responses! 😊"
+                response = "I'm thinking... Give me just a second! 😊"
                 if history is not None:
                     history.append((message, response))
                     return "", history
                 return {"response": response}
-            
+
             self.last_interaction = current_time
-            
+
+            # Conversational greeting handling
+            if self._is_greeting(message):
+                response = (
+                    "Hello! 👋 I'm Codette, your AI programming assistant. "
+                    "How can I help you today? If you want to talk code, AI, or just chat, I'm here!"
+                )
+                timestamp = datetime.now().strftime("%H:%M:%S")
+                formatted_response = f"[{timestamp}]\n\n{response}"
+                self.response_memory.append({
+                    "query": message,
+                    "response": response,
+                    "timestamp": timestamp
+                })
+                if history is not None:
+                    history.append((message, formatted_response))
+                    return "", history
+                return {
+                    "response": response,
+                    "timestamp": timestamp,
+                    "metrics": {},
+                    "insights": []
+                }
+
             # Process through Codette with error handling
             try:
                 result = self.codette.respond(message)
                 response = result["response"]
-                
+
                 # Add metrics to response if available
                 if "metrics" in result:
                     metrics = result["metrics"]
@@ -95,26 +120,38 @@ class CodetteInterface:
                         response += f"\nConfidence: {metrics['confidence']:.1%}"
                     if "quantum_coherence" in metrics:
                         response += f"\nQuantum Coherence: {metrics['quantum_coherence']:.1%}"
-                
+
                 # Add insights if available
                 if "insights" in result and result["insights"]:
                     response += "\n\n💡 Insights:\n" + "\n".join(f"• {insight}" for insight in result["insights"])
-                    
+
+                # If the response is a fallback or unclear, make it more conversational
+                fallback_phrases = [
+                    "I apologize, but I need to collect my thoughts.",
+                    "Could you please rephrase your question?",
+                    "I'm not sure I understood that."
+                ]
+                if any(phrase in response for phrase in fallback_phrases):
+                    response = (
+                        "Hmm, I want to give you the best answer I can! "
+                        "Could you clarify or ask in a different way? Or just tell me more about what you're working on. 😊"
+                    )
+
             except Exception as e:
                 logger.error(f"Error in response processing: {str(e)}")
-                response = f"I apologize, but I encountered an error while processing your request: {str(e)}"
-            
+                response = f"Sorry, I ran into a hiccup while processing your request: {str(e)}"
+
             # Format comprehensive response
             timestamp = datetime.now().strftime("%H:%M:%S")
             formatted_response = f"[{timestamp}]\n\n{response}"
-            
+
             # Store in memory
             self.response_memory.append({
                 "query": message,
                 "response": response,
                 "timestamp": timestamp
             })
-            
+
             # Return appropriate format based on context
             if history is not None:
                 history.append((message, formatted_response))
@@ -125,11 +162,11 @@ class CodetteInterface:
                 "metrics": result.get("metrics", {}),
                 "insights": result.get("insights", [])
             }
-            
+
         except Exception as e:
             logger.error(f"Error processing message: {e}")
-            error_msg = f"I apologize, but I encountered an error processing your request. Error details: {str(e)}"
-            
+            error_msg = f"Sorry, I had trouble processing your request. Details: {str(e)}"
+
             if history is not None:
                 history.append((message, error_msg))
                 return "", history
