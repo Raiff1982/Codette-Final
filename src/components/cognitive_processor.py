@@ -7,6 +7,20 @@ import numpy as np
 from datetime import datetime
 
 class CognitiveProcessor:
+
+    def generate_insights(self, response: str, consciousness_state: Any = None) -> list:
+        """Generate insights from a response and optional consciousness state."""
+        # For now, just return a simple list based on the response and consciousness_state
+        insights = []
+        if response:
+            insights.append(f"Response summary: {response[:60]}{'...' if len(response) > 60 else ''}")
+        if consciousness_state:
+            if isinstance(consciousness_state, dict):
+                for k, v in consciousness_state.items():
+                    insights.append(f"Consciousness: {k} = {v}")
+            else:
+                insights.append(f"Consciousness state: {str(consciousness_state)}")
+        return insights[:3]
     """Core processing engine for Codette responses"""
     
     MODES = {
