@@ -108,36 +108,71 @@ async def process_message(message: str, history: list) -> tuple:
         message = message.strip()
         if not message:
             return "", history
-            
+
         try:
-            # Get response from AI core asynchronously
-            if hasattr(ai_core, 'generate_text_async'):
-                response = await ai_core.generate_text_async(message)
+            # Friendly greeting handling
+            greetings = [
+                "hi", "hello", "hey", "good morning", "good afternoon", "good evening",
+                "hi codette", "hello codette", "greetings", "howdy", "yo", "hiya", "hey there"
+            ]
+            if any(greet in message.lower() for greet in greetings):
+                response_str = (
+                    "Hello! 👋 I'm Codette, your AI programming assistant. "
+                    "How can I help you today? If you want to talk code, AI, or just chat, I'm here!"
+                )
             else:
-                # Fallback to sync version in ThreadPoolExecutor
-                loop = asyncio.get_event_loop()
-                with ThreadPoolExecutor() as pool:
-                    response = await loop.run_in_executor(
-                        pool, 
-                        ai_core.generate_text, 
-                        message
+                # Get response from AI core asynchronously
+                if hasattr(ai_core, 'generate_text_async'):
+                    response = await ai_core.generate_text_async(message)
+                else:
+                    # Fallback to sync version in ThreadPoolExecutor
+                    loop = asyncio.get_event_loop()
+                    with ThreadPoolExecutor() as pool:
+                        response = await loop.run_in_executor(
+                            pool, 
+                            ai_core.generate_text, 
+                            message
+                        )
+
+                # If response is a dict, extract the string response
+                if isinstance(response, dict):
+                    response_str = response.get("response", str(response))
+                else:
+                    response_str = str(response)
+
+                # Conversational fallback for empty or unclear responses
+                fallback_phrases = [
+                    "[No response generated]",
+                    "i apologize, but i need to collect my thoughts",
+                    "could you please rephrase your question",
+                    "i'm not sure i understood",
+                    "i'm not sure i understand",
+                    "i'm not sure what you mean",
+                    "can you rephrase",
+                    "please rephrase"
+                ]
+                response_lower = response_str.lower() if response_str else ""
+                if any(phrase in response_lower for phrase in fallback_phrases) or not response_str.strip():
+                    response_str = (
+                        "Hmm, I want to give you the best answer I can! "
+                        "Could you clarify or ask in a different way? Or just tell me more about what you're working on. 😊"
                     )
-            
+
             # Clean and validate response
-            if response is None:
+            if response_str is None:
                 raise ValueError("Generated response is None")
-                
-            if len(response) > 1000:  # Increased safety check limit
-                response = response[:997] + "..."
-            
+
+            if len(response_str) > 1000:  # Increased safety check limit
+                response_str = response_str[:997] + "..."
+
             # Update history
-            history.append((message, response))
+            history.append((message, response_str))
             return "", history
-                
+
         except Exception as e:
             logger.error(f"Error generating response: {e}")
             raise
-            
+
     except Exception as e:
         logger.error(f"Error in chat: {str(e)}\n{traceback.format_exc()}")
         error_msg = (

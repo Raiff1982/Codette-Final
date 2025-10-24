@@ -73,16 +73,13 @@ class CodetteInterface:
         """Process a message through Codette's systems and always return a chat-compatible tuple."""
         try:
             current_time = datetime.now()
-
-            # Ensure history is a list of (user, bot) tuples
             if history is None or not isinstance(history, list):
                 history = []
 
             # Handle rapid repeated messages
             if self.last_interaction and (current_time - self.last_interaction).total_seconds() < 1:
                 response = "I'm thinking... Give me just a second! 😊"
-                history.append((message, response))
-                return "", history
+                return response
 
             self.last_interaction = current_time
 
@@ -92,18 +89,9 @@ class CodetteInterface:
                     "Hello! 👋 I'm Codette, your AI programming assistant. "
                     "How can I help you today? If you want to talk code, AI, or just chat, I'm here!"
                 )
-                timestamp = datetime.now().strftime("%H:%M:%S")
-                formatted_response = f"[{timestamp}]\n\n{response}"
-                self.response_memory.append({
-                    "query": message,
-                    "response": response,
-                    "timestamp": timestamp
-                })
-                history.append((message, formatted_response))
-                return "", history
+                return response
 
             # Process through Codette with error handling
-
             try:
                 result = self.codette.respond(message)
                 response = result.get("response", "[No response generated]")
@@ -147,26 +135,11 @@ class CodetteInterface:
                 logger.error(f"Error in response processing: {str(e)}")
                 response = f"Sorry, I ran into a hiccup while processing your request: {str(e)}"
 
-            # Format comprehensive response
-            timestamp = datetime.now().strftime("%H:%M:%S")
-            formatted_response = f"[{timestamp}]\n\n{response}"
-
-            # Store in memory
-            self.response_memory.append({
-                "query": message,
-                "response": response,
-                "timestamp": timestamp
-            })
-
-            # Always append to chat history and return
-            history.append((message, formatted_response))
-            return "", history
+            return response
 
         except Exception as e:
             logger.error(f"Error processing message: {e}")
-            error_msg = f"Sorry, I had trouble processing your request. Details: {str(e)}"
-            history.append((message, error_msg))
-            return "", history
+            return f"Sorry, I had trouble processing your request. Details: {str(e)}"
 
     def clear_history(self):
         """Clear chat history and reset memory"""
