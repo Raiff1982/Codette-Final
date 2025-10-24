@@ -9,7 +9,7 @@ import json
 import hashlib
 import threading
 import logging
-from src.data_access.sqlite_manager import SQLiteManager
+from data_access.sqlite_manager import SQLiteManager
 from datetime import datetime, timedelta
 from abc import ABC, abstractmethod
 from collections import defaultdict

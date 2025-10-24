@@ -12,7 +12,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor
 # Import core components
-from .cognitive_processor import CognitiveProcessor
+from components.cognitive_processor import CognitiveProcessor
 from .ai_core_async_methods import generate_text_async, _generate_model_response
 from .defense_system import DefenseSystem
 from .health_monitor import HealthMonitor
@@ -116,9 +116,7 @@ class AICore:
         
         logger.info(f"AI Core initialized in {'test' if test_mode else 'production'} mode")
         
-        self.cognitive_processor = CognitiveProcessor(
-            modes=["scientific", "creative", "emotional", "quantum", "philosophical"]
-        )
+        self.cognitive_processor = CognitiveProcessor()
         self.defense_system = DefenseSystem(
             strategies=["evasion", "adaptability", "barrier", "quantum_shield"]
         )

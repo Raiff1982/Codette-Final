@@ -24,7 +24,7 @@ from ai_core import AICore
 from ai_core_system import AICore as AISystem
 from codette import Codette
 from codette2 import CodetteCQURE
-from cognitive_processor import CognitiveProcessor
+from components.cognitive_processor import CognitiveProcessor
 from defense_system import DefenseSystem
 from health_monitor import HealthMonitor
 from config_manager import EnhancedAIConfig

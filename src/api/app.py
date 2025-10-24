@@ -9,7 +9,7 @@ import torch
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from ai_core import AICore
+from components.ai_core import AICore
 from aegis_integration import AegisBridge
 from aegis_integration.config import AEGIS_CONFIG
 from components.search_engine import SearchEngine
@@ -65,17 +65,10 @@ try:
         ai_core.model = model
         ai_core.tokenizer = tokenizer
         ai_core.model_id = model_name
-        
-        # Initialize cognitive processor with default modes
-        from cognitive_processor import CognitiveProcessor
-        cognitive_modes = ["scientific", "creative", "quantum", "philosophical"]
-        ai_core.cognitive_processor = CognitiveProcessor(
-            modes=cognitive_modes,
-            quantum_state={"coherence": 0.5}
-        )
-        logger.info(
-            f"AI Core initialized successfully with modes: {cognitive_modes}"
-        )
+        # Initialize cognitive processor
+        from components.cognitive_processor import CognitiveProcessor
+        ai_core.cognitive_processor = CognitiveProcessor()
+        logger.info("AI Core initialized successfully.")
     except Exception as e:
         logger.error(f"Error initializing AI Core: {e}")
         raise

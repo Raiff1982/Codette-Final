@@ -30,7 +30,7 @@ except ImportError as e:
 
 # Essential Components
 try:
-    from cognitive_processor import CognitiveProcessor 
+    from components.cognitive_processor import CognitiveProcessor 
     from cognitive_auth import CognitiveAuthManager
     from defense_system import DefenseSystem
     from health_monitor import HealthMonitor

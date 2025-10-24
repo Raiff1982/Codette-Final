@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+import json
 import json
 import hashlib
 import threading
 import logging
-from src.data_access.sqlite_manager import SQLiteManager
+from data_access.sqlite_manager import SQLiteManager
 from datetime import datetime, timedelta
 from abc import ABC, abstractmethod
 from collections import defaultdict
@@ -1630,5 +1630,4 @@ def main():
         logging.error(f"Main execution failed: {e}")
 
 if __name__ == "__main__":
->>>>>>> 7a2e8abc4fde57c7076b23e8e0b700e632e34c90
     main()
