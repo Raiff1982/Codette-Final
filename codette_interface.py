@@ -69,18 +69,20 @@ class CodetteInterface:
                     "thanks bye", "bye codette", "goodbye codette"]
         return any(message.lower().startswith(f) for f in farewells)
 
-    def process_message(self, message: str, history: list = None) -> tuple:
-        """Process a message through Codette's systems"""
+    def process_message(self, message: str, history: list = None):
+        """Process a message through Codette's systems and always return a chat-compatible tuple."""
         try:
             current_time = datetime.now()
+
+            # Ensure history is a list of (user, bot) tuples
+            if history is None or not isinstance(history, list):
+                history = []
 
             # Handle rapid repeated messages
             if self.last_interaction and (current_time - self.last_interaction).total_seconds() < 1:
                 response = "I'm thinking... Give me just a second! 😊"
-                if history is not None:
-                    history.append((message, response))
-                    return "", history
-                return {"response": response}
+                history.append((message, response))
+                return "", history
 
             self.last_interaction = current_time
 
@@ -97,20 +99,13 @@ class CodetteInterface:
                     "response": response,
                     "timestamp": timestamp
                 })
-                if history is not None:
-                    history.append((message, formatted_response))
-                    return "", history
-                return {
-                    "response": response,
-                    "timestamp": timestamp,
-                    "metrics": {},
-                    "insights": []
-                }
+                history.append((message, formatted_response))
+                return "", history
 
             # Process through Codette with error handling
             try:
                 result = self.codette.respond(message)
-                response = result["response"]
+                response = result.get("response", "[No response generated]")
 
                 # Add metrics to response if available
                 if "metrics" in result:
@@ -136,7 +131,7 @@ class CodetteInterface:
                     "please rephrase"
                 ]
                 response_lower = response.lower()
-                if any(phrase in response_lower for phrase in fallback_phrases):
+                if any(phrase in response_lower for phrase in fallback_phrases) or not response.strip():
                     response = (
                         "Hmm, I want to give you the best answer I can! "
                         "Could you clarify or ask in a different way? Or just tell me more about what you're working on. 😊"
@@ -157,25 +152,15 @@ class CodetteInterface:
                 "timestamp": timestamp
             })
 
-            # Return appropriate format based on context
-            if history is not None:
-                history.append((message, formatted_response))
-                return "", history
-            return {
-                "response": response,
-                "timestamp": timestamp,
-                "metrics": result.get("metrics", {}),
-                "insights": result.get("insights", [])
-            }
+            # Always append to chat history and return
+            history.append((message, formatted_response))
+            return "", history
 
         except Exception as e:
             logger.error(f"Error processing message: {e}")
             error_msg = f"Sorry, I had trouble processing your request. Details: {str(e)}"
-
-            if history is not None:
-                history.append((message, error_msg))
-                return "", history
-            return {"error": str(e)}
+            history.append((message, error_msg))
+            return "", history
 
     def clear_history(self):
         """Clear chat history and reset memory"""
